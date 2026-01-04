@@ -217,6 +217,11 @@ mariadb:
   
   # Database authentication configuration
   auth:
+    # Use an existing secret for database credentials
+    # If set, the secret must contain keys: MARIADB_DATABASE, MARIADB_USER, MARIADB_PASSWORD
+    existingSecret: ""
+    
+    # The following values are only used if existingSecret is not set
     # Root password for MariaDB
     rootPassword: glpi
     # Database name for GLPI

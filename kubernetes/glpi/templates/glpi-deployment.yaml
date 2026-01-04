@@ -27,7 +27,7 @@ spec:
         - configMapRef: 
             name: glpi-config
         - secretRef: 
-            name: glpi-secret
+            name: {{ include "glpi.secretName" . }}
         ports:
         - containerPort: 9000
           name: fpm
@@ -99,7 +99,7 @@ spec:
         - configMapRef: 
             name: glpi-config
         - secretRef: 
-            name: glpi-secret
+            name: {{ include "glpi.secretName" . }}
         ports:
         - containerPort: 8080
           name: http

@@ -86,3 +86,14 @@ Return the proper Redis image name
 {{- define "glpi.redis.image" -}}
 {{- printf "%s:%s" .Values.redis.image.repository .Values.redis.image.tag }}
 {{- end }}
+
+{{/*
+Get the name of the secret to use for GLPI credentials
+*/}}
+{{- define "glpi.secretName" -}}
+{{- if .Values.mariadb.auth.existingSecret }}
+{{- .Values.mariadb.auth.existingSecret }}
+{{- else }}
+{{- "glpi-secret" }}
+{{- end }}
+{{- end }}
