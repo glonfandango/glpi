@@ -97,3 +97,22 @@ Get the name of the secret to use for GLPI credentials
 {{- "glpi-secret" }}
 {{- end }}
 {{- end }}
+
+{{/*
+Return the cluster domain
+*/}}
+{{- define "glpi.clusterDomain" -}}
+{{- if .Values.global }}
+{{- .Values.global.clusterDomain | default "cluster.local" }}
+{{- else }}
+{{- "cluster.local" }}
+{{- end }}
+{{- end }}
+
+{{/*
+Construct a fully qualified service name
+Usage: include "glpi.serviceFQDN" (dict "service" "mariadb-headless" "context" $)
+*/}}
+{{- define "glpi.serviceFQDN" -}}
+{{- printf "%s.%s.svc.%s" .service (include "glpi.namespace" .context) (include "glpi.clusterDomain" .context) }}
+{{- end }}

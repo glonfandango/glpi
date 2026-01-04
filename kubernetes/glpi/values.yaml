@@ -8,6 +8,11 @@ global:
   # If not set, the release namespace will be used
   # Leave empty to use Helm's release namespace
   namespace: "glpi"
+  
+  # Kubernetes cluster domain
+  # This is used to construct service FQDNs
+  # Default: cluster.local (standard Kubernetes cluster domain)
+  clusterDomain: "cluster.local"
 
 # -- GLPI Application Configuration
 glpi:

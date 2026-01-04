@@ -7,6 +7,6 @@ metadata:
   labels:
     {{- include "glpi.labels" . | nindent 4 }}
 data: 
-  MARIADB_HOST: "mariadb-headless.{{ include "glpi.namespace" . }}.svc.cluster.local"
+  MARIADB_HOST: "{{ include "glpi.serviceFQDN" (dict "service" "mariadb-headless" "context" .) }}"
   MARIADB_PORT: {{ .Values.mariadb.service.port | quote }}
 {{- end }}
