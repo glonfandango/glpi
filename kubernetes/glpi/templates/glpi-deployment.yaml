@@ -90,6 +90,13 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.glpi.phpfpm.resources | nindent 12 }}
+      volumes:
+        - name: etc
+          persistentVolumeClaim:
+            claimName: glpi-etc
+        - name: files
+          persistentVolumeClaim:
+            claimName: glpi-files
         - name: marketplace
           persistentVolumeClaim:
             claimName: glpi-marketplace
@@ -191,6 +198,7 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.glpi.nginx.resources | nindent 12 }}
+      volumes:
         - name: etc
           persistentVolumeClaim:
             claimName: glpi-etc

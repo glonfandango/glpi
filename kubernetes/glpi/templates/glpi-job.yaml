@@ -48,9 +48,16 @@ spec:
               mountPath: /var/www/html/marketplace
             - name: etc
               mountPath: /etc/glpi
+      volumes:
+        - name: files
+          persistentVolumeClaim:
+            claimName: glpi-files
         - name: marketplace
           persistentVolumeClaim:
             claimName: glpi-marketplace
+        - name: etc
+          persistentVolumeClaim:
+            claimName: glpi-etc
       restartPolicy: OnFailure
   parallelism: 1
   completions: 1
@@ -130,15 +137,16 @@ spec:
               mountPath: /var/www/html/marketplace
             - name: etc
               mountPath: /etc/glpi
-        - name: etc
-          persistentVolumeClaim:
-            claimName: glpi-etc
+      volumes:
         - name: files
           persistentVolumeClaim:
             claimName: glpi-files
         - name: marketplace
           persistentVolumeClaim:
             claimName: glpi-marketplace
+        - name: etc
+          persistentVolumeClaim:
+            claimName: glpi-etc
       restartPolicy: OnFailure
   parallelism: 1
   completions: 1
@@ -218,15 +226,16 @@ spec:
               mountPath: /var/www/html/marketplace
             - name: etc
               mountPath: /etc/glpi
-        - name: etc
-          persistentVolumeClaim:
-            claimName: glpi-etc
+      volumes:
         - name: files
           persistentVolumeClaim:
             claimName: glpi-files
         - name: marketplace
           persistentVolumeClaim:
             claimName: glpi-marketplace
+        - name: etc
+          persistentVolumeClaim:
+            claimName: glpi-etc
       restartPolicy: OnFailure
   parallelism: 1
   completions: 1
@@ -306,15 +315,16 @@ spec:
               mountPath: /var/lib/glpi
             - name: marketplace
               mountPath: /var/www/html/marketplace
-        - name: etc
-          persistentVolumeClaim:
-            claimName: glpi-etc
+      volumes:
         - name: files
           persistentVolumeClaim:
             claimName: glpi-files
         - name: marketplace
           persistentVolumeClaim:
             claimName: glpi-marketplace
+        - name: etc
+          persistentVolumeClaim:
+            claimName: glpi-etc
       restartPolicy: OnFailure
   parallelism: 1
   completions: 1
@@ -371,15 +381,16 @@ spec:
               mountPath: /var/lib/glpi
             - name: marketplace
               mountPath: /var/www/html/marketplace
-        - name: etc
-          persistentVolumeClaim:
-            claimName: glpi-etc
+      volumes:
         - name: files
           persistentVolumeClaim:
             claimName: glpi-files
         - name: marketplace
           persistentVolumeClaim:
             claimName: glpi-marketplace
+        - name: etc
+          persistentVolumeClaim:
+            claimName: glpi-etc
       restartPolicy: OnFailure
   parallelism: 1
   completions: 1
