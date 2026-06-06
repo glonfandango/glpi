@@ -10,7 +10,7 @@ data:
   VERSION: {{ .Values.glpi.version | quote }}
   GLPI_MARKETPLACE_DIR: {{ .Values.glpi.paths.marketplace }}
   GLPI_VAR_DIR: {{ .Values.glpi.paths.var }}
-  GLPI_DOC_DIR: {{ .Values.glpi.paths.var }}
+  GLPI_DOC_DIR: /var/www/html
   GLPI_CRON_DIR: {{ .Values.glpi.paths.var }}/_cron
   GLPI_DUMP_DIR: {{ .Values.glpi.paths.var }}/_dumps
   GLPI_GRAPH_DIR: {{ .Values.glpi.paths.var }}/_graphs
@@ -18,14 +18,17 @@ data:
   GLPI_LOG_DIR: {{ .Values.glpi.paths.var }}/_log
   GLPI_PICTURE_DIR: {{ .Values.glpi.paths.var }}/_pictures
   GLPI_PLUGIN_DOC_DIR: {{ .Values.glpi.paths.var }}/_plugins
-  GLPI_RSS_DIR:  {{ .Values.glpi.paths.var }}/_rss
+  GLPI_RSS_DIR: {{ .Values.glpi.paths.var }}/_rss
   GLPI_SESSION_DIR: {{ .Values.glpi.paths.var }}/_sessions
   GLPI_TMP_DIR: {{ .Values.glpi.paths.var }}/_tmp
   GLPI_UPLOAD_DIR: {{ .Values.glpi.paths.var }}/_uploads
   GLPI_CACHE_DIR: {{ .Values.glpi.paths.var }}/_cache
   GLPI_CONFIG_DIR: {{ .Values.glpi.paths.config }}
 
-  MARIADB_HOST: "{{ include "glpi.serviceFQDN" (dict "service" "mariadb-headless" "context" .) }}"
+  MARIADB_HOST: {{ include "glpi.serviceFQDN" (dict "service" "mariadb-headless" "context" .) }}
+  {{- if .Values.externalDatabase }}
+  MARIADB_HOST_EXTERNAL: {{ .Values.externalDatabase.host | quote }}
+  {{- end }}
   MARIADB_PORT: {{ .Values.mariadb.service.port | quote }}
 
 
@@ -53,7 +56,6 @@ data:
         }
 
         location ~ ^/index\.php$ {
-            # the following line needs to be adapted, as it changes depending on OS distributions and PHP versions
             fastcgi_pass {{ include "glpi.serviceFQDN" (dict "service" "php-fpm" "context" .) }}:9000;
 
             fastcgi_split_path_info ^(.+\.php)(/.*)$;

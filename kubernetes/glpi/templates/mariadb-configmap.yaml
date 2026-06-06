@@ -1,12 +1,15 @@
 {{- if .Values.mariadb.enabled }}
 apiVersion: v1
 kind: ConfigMap
-metadata: 
+metadata:
   name: mariadb-glpi-config
   namespace: {{ include "glpi.namespace" . }}
   labels:
     {{- include "glpi.labels" . | nindent 4 }}
 data: 
   MARIADB_HOST: "{{ include "glpi.serviceFQDN" (dict "service" "mariadb-headless" "context" .) }}"
+  {{- if .Values.externalDatabase }}
+  MARIADB_HOST_EXTERNAL: "{{ .Values.externalDatabase.host }}"
+  {{- end }}
   MARIADB_PORT: {{ .Values.mariadb.service.port | quote }}
 {{- end }}

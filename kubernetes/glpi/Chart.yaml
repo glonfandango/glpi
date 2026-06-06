@@ -1,30 +1,62 @@
 apiVersion: v2
 name: glpi
-description: GLPI - IT Asset Management and Service Desk
-
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+description: GLPI Helm Chart - IT Asset Management and Service Desk
 type: application
+version: 11.0.7
+appVersion: "11.0.7"
 
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.0
+# Artifact Hub Metadata
+home: https://github.com/eftechcombr/glpi
+icon: https://glpi-project.org/wp-content/themes/glpi/assets/img/logo-glpi.svg
+sources:
+  - https://github.com/eftechcombr/glpi
+  - https://github.com/glpi-project/glpi
 
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-# It is recommended to use it with quotes.
-appVersion: "11.0.4"
+maintainers:
+  - name: eftechcombr
+    email: contato@eftech.com.br
+    url: https://github.com/eftechcombr
 
 keywords:
   - glpi
   - itil
   - asset-management
   - service-desk
+  - itsm
+
+annotations:
+  artifacthub.io/category: it-service-management
+  artifacthub.io/language: en, pt-br
+  artifacthub.io/license: GPL-3.0
+  artifacthub.io/links: |
+    - name: support
+      url: https://github.com/eftechcombr/glpi/issues
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: "Fix CronJob YAML indentation bug preventing deployment"
+    - kind: fixed
+      description: "Fix Ingress backend service name to match nginx service"
+    - kind: changed
+      description: "StatefulSet now uses volumeClaimTemplates for multi-replica support"
+    - kind: changed
+      description: "Use app.kubernetes.io/component labels consistently across all templates"
+    - kind: added
+      description: "ServiceAccount template with imagePullSecrets and scheduling values"
+    - kind: added
+      description: "External database support via externalDatabase config"
+    - kind: changed
+      description: "Added security contexts and resource limits to init containers"
+    - kind: changed
+      description: "Redis now has liveness/readiness probes and security context defaults"
+    - kind: changed
+      description: "MariaDB and Redis now run with non-root security contexts by default"
+    - kind: fixed
+      description: "Fix GLPI_DOC_DIR pointing to /var/www/html instead of var dir"
+    - kind: changed
+      description: "StatefulSet anti-affinity changed to requiredDuringScheduling"
+    - kind: fixed
+      description: "Remove deprecated alpha API annotation and status subresource fields"
+    - kind: fixed
+      description: "Fix terminationGracePeriodSeconds moved to pod template spec"
+    - kind: fixed
+      description: "Fix helm-publish workflow skipping publish on release events"
